@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package protos;
+
+// [START messages]
+// --- Book Declaration ---
+message Book {
+    /* in proto3 the default value of the modifier is optional,
+    so all the below fields are optional */
+   string ISBN = 1;
+   string title = 2;
+   string author = 3;
+   GenreType genre= 4;
+   int32 publishingYear= 5;
+
+  enum GenreType {
+    Fiction = 0;
+    NonFiction = 1;
+    History = 2;
+    Philosophy = 3;
+    SocialScience = 4;
+  }
+}
+
+/*
+// Author declaration -- removed for simplicity
+message Author {
+    string name = 1;
+    string biography = 2;
+    repeated Book writings= 3;
+} */
+
+// --- Inventory Item Declaration ---
+
+message InventoryItem {
+    string inventoryNumber=1;
+    oneof singleBook {
+        Book book= 2;
+    }
+    ItemStatus status =3;
+    
+    enum ItemStatus {
+        Available = 0;
+        Taken = 1;
+    }
+}
+
+// The request message of CreateBook contains book details
+message CreateBookRequest {
+    Book book = 1;
+}
+
+// The response message of CreateBook contains confirmation message
+message CreateBookResponse {
+    string confirmationMessage = 1;
+}
+
+// The request message of GetBook contains the ISBN of the book
+message GetBookRequest {
+    string ISBN = 1;
+}
+// The response message of GetBook contains the book details
+message GetBookResponse {
+    Book book = 1;
+}
+// [END messages]
+
+
+
+// [Start Service]
+service InventoryService {
+    // create book rpc, take book details as input and return confirmation message
+    rpc CreateBook (CreateBookRequest) returns (CreateBookResponse) {}
+
+    // get book rpc, take book's ISBN as input and return book details
+    rpc GetBook (GetBookRequest) returns (GetBookResponse) {}
+}
+// [End Service]
+
+
+// to generate gRPC code: 
+// python3 -m grpc_tools.protoc -I protos --python_out=service --pyi_out=service --grpc_python_out=service protos/publicLibrary.proto

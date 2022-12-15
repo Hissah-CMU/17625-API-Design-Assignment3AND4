@@ -1,0 +1,26 @@
+[
+    {"book": {
+        "ISBN": "0321543254",
+        "title": "The History Book!",
+        "author": "Mike A. ABC",
+        "genre": "History",
+        "publishingYear": 2010
+    }
+    },
+    {"book": {
+        "ISBN": "0377209000",
+        "title": "The Social Science Book!",
+        "author": "Jhon V. XYZ",
+        "genre": "SocialScience",
+        "publishingYear": 2015
+    }
+    },
+    {"book": {
+        "ISBN": "0964001172",
+        "title": "The Philosophy Book!",
+        "author": "Sara P. ABC",
+        "genre": "Philosophy",
+        "publishingYear": 2019
+    }
+    }
+]
