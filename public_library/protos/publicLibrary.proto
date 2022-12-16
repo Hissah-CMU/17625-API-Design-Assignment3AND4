@@ -22,14 +22,6 @@ message Book {
   }
 }
 
-/*
-// Author declaration -- removed for simplicity
-message Author {
-    string name = 1;
-    string biography = 2;
-    repeated Book writings= 3;
-} */
-
 // --- Inventory Item Declaration ---
 
 message InventoryItem {
@@ -37,12 +29,14 @@ message InventoryItem {
     oneof singleBook {
         Book book= 2;
     }
-    ItemStatus status =3;
-    
     enum ItemStatus {
-        Available = 0;
-        Taken = 1;
+      Available = 0;
+      Taken = 1;
     }
+
+    //I tried to add status ItemStatus status =3 [default = Available];, but it seems that it is not supported in proto3
+    //Explicit default values are not allowed in proto3.
+    ItemStatus status =3;
 }
 
 // The request message of CreateBook contains book details
